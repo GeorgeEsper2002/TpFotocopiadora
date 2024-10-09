@@ -1,5 +1,4 @@
-package fotocopiadoraMain;
-
+package fotocopiadoramain;
 import javax.swing.JOptionPane;
 
 public class Main {
