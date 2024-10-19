@@ -4,7 +4,7 @@ public class User {
 
 	private String name;
 	private String password;
-	private int role;
+	private int role;// 0-Admin 1-User
 	
 	
 	public User(String name, String password, int role) {
