@@ -10,7 +10,7 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import models.User;
 import javax.swing.*;
 
 public class LoginFrame extends JFrame implements ActionListener {
@@ -18,12 +18,9 @@ public class LoginFrame extends JFrame implements ActionListener {
 	
 	private JTextField user;
 	private JTextField pass;
+	
 	public JButton btnLogin,prueba;
-	
-	
-	
 
-	
 	  public LoginFrame() { 
 
 	  	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,7 +47,7 @@ public class LoginFrame extends JFrame implements ActionListener {
 		  panel.add(lblUser, gbc);
 		  
 		  // Campo de texto para ingresar 
-		  JTextField user = new JTextField(20); 
+		  user = new JTextField(20); 
 		  gbc.gridx= 1; 
 		  gbc.gridy = 0; 
 		  panel.add(user, gbc);
@@ -68,15 +65,15 @@ public class LoginFrame extends JFrame implements ActionListener {
 		  panel.add(pass, gbc);
 		  
 		  // Botón de Login 
-		  JButton btnLogin = new JButton("Login"); 
+		   btnLogin = new JButton("Login"); 
 		  gbc.gridx = 1;
 		  gbc.gridy = 2; 
 		  panel.add(btnLogin, gbc);
 		  
-		  prueba=new JButton("Prueba");
-		  panel.add(prueba);
-		  prueba.addActionListener(this);
+		
+		  
 		  btnLogin.addActionListener(this);
+		 
 		  add(panel); 
 		  setVisible(true); 
 		  }
@@ -84,15 +81,16 @@ public class LoginFrame extends JFrame implements ActionListener {
 	  
 	      @Override
 		  public void actionPerformed(ActionEvent event) {
-			  
+			  User user1=new User("admin","admin",0);
 			  
 	    	  if(event.getSource()==btnLogin) {
-	    		  JOptionPane.showMessageDialog(null, "ssssssss");
+	    		  if(user1.getName().equals(user.getText()) && user1.getPassword().equals(pass.getText())) {
+	    			  
+	    			  JOptionPane.showMessageDialog(null, user1.toString());
+	    			
+	    		  }
 	    	  }
-	    	  if(event.getSource()==prueba) {
-	    		  
-	    		  JOptionPane.showMessageDialog(null, "Has presionado en prueba");
-	    	  }
+	    	
 			  
 		  }
 
@@ -103,14 +101,25 @@ public class LoginFrame extends JFrame implements ActionListener {
 		public void setUser(JTextField user) {
 			this.user = user;
 		}
+		
+		public JTextField getPass() {
+			return pass;
+		}
 
 
-		  
+		public void setPass(JTextField pass) {
+			this.pass = pass;
+		}
+
+
 		  
 	
 		
 	
 }
+
+
+
 
 
 
