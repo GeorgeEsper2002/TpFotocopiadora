@@ -17,6 +17,6 @@ package views;
  * */
 
 
-public class AdminFrame {
+public class AdminView {
 
 }
