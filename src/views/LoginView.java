@@ -18,7 +18,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import models.User;
-
+import persistence.DataBase;
 public class LoginView {
 	
 	private JFrame frame;
@@ -84,13 +84,15 @@ public class LoginView {
 			  
 			  public void actionPerformed(ActionEvent e) {
 				
+				 //DataBase instance=instance.getInstance();
 				  User user1=new User("admin","admin",0);
-				  
 		    	  if(e.getSource()==btnLogin) {
 		    		  if(user1.getName().equals(user.getText()) && user1.getPassword().equals(pass.getText())) {
-		    			  JOptionPane.showMessageDialog(null, "Login exitoso");
-		    			  clearText();
+		    			  JOptionPane.showMessageDialog(null, "Bienvenido "+ user1.getName());
 		    			  frame.dispose();
+		    			  clearText();
+		    			  AdminView view= new AdminView();
+		    			  
 		    			  
 		    			  	
 		    		  }
@@ -110,6 +112,8 @@ public class LoginView {
 		
 	}
 	
+	
+	// Function to clear the text fields
 	private void clearText() {
 		
 		user.setText("");
