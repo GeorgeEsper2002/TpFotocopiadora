@@ -92,7 +92,7 @@ public class LoginView {
 		    			  frame.dispose();
 		    			  clearText();
 		    			  AdminView view= new AdminView();
-		    			  
+		    			  ////
 		    			  
 		    			  	
 		    		  }
