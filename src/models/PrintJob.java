@@ -18,7 +18,6 @@ public class PrintJob {
 	
 	public PrintJob(int id, String description, int copies, String state, String quality, String entryDate,
 			String finishDate, String deliveryDate) {
-		super();
 		this.id = id;
 		this.description = description;
 		this.copies = copies;
