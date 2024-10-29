@@ -18,107 +18,105 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import models.User;
-import persistence.DataBase;
+import persistence.DataUser;
+
 public class LoginView {
-	
+
 	private JFrame frame;
-	private JTextField user;
-	private JTextField pass;
-	public JButton btnLogin,prueba;
-	
-	public LoginView(){
-		
-		frame=new JFrame();
+	private JTextField txtUser;
+	private JTextField txtPassword;
+	public JButton btnLogin, prueba;
+
+	public LoginView() {
+
+		frame = new JFrame();
 		frame.setTitle("Login");
-		
+
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		Toolkit screen = Toolkit.getDefaultToolkit(); 
-		Dimension dimension =screen.getScreenSize();
-		
+
+		Toolkit screen = Toolkit.getDefaultToolkit();
+		Dimension dimension = screen.getScreenSize();
+
 		frame.setSize(dimension.width / 2, dimension.height / 2);
 		frame.setLocation(dimension.width / 4, dimension.height / 4);
-		
-		Image icon = screen.getImage("src/views/java.png"); 
+
+		Image icon = screen.getImage("src/views/java.png");
 		frame.setIconImage(icon);
-		
-		 // Main panel 
-		  JPanel panel = new JPanel(new GridBagLayout());
-		  GridBagConstraints gbc = new GridBagConstraints(); 
-		  gbc.insets = new Insets(10, 10, 10, 10); 
-		  gbc.anchor = GridBagConstraints.CENTER;
-		  
-		  // Etiqueta para usuario 
-		  JLabel lblUser = new JLabel("Usuario:"); 
-		  gbc.gridx =0; 
-		  gbc.gridy = 0; 
-		  panel.add(lblUser, gbc);
-		  
-		  // Campo de texto para ingresar 
-		  user = new JTextField(20); 
-		  gbc.gridx= 1; 
-		  gbc.gridy = 0; 
-		  panel.add(user, gbc);
-		  
-		  // Etiqueta para Contraseña 
-		  JLabel lblPass = new JLabel("Contraseña:");
-		  gbc.gridx = 0; 
-		  gbc.gridy = 1; 
-		  panel.add(lblPass, gbc);
-		  
-		  // Campo de texto para ingresar Contraseña 
-		  pass = new JPasswordField(20);
-		  gbc.gridx = 1; 
-		  gbc.gridy = 1; 
-		  panel.add(pass, gbc);
-		  
-		  // Botón de Login 
-		  btnLogin = new JButton("Login"); 
-		  gbc.gridx = 1;
-		  gbc.gridy = 2; 
-		  panel.add(btnLogin, gbc);
-		  
-		
-		  
-		  btnLogin.addActionListener(new ActionListener() {
-			  
-			  public void actionPerformed(ActionEvent e) {
-				
-				 //DataBase instance=instance.getInstance();
-				  User user1=new User("admin","admin",0);
-		    	  if(e.getSource()==btnLogin) {
-		    		  if(user1.getName().equals(user.getText()) && user1.getPassword().equals(pass.getText())) {
-		    			  JOptionPane.showMessageDialog(null, "Bienvenido "+ user1.getName());
-		    			  frame.dispose();
-		    			  clearText();
-		    			  AdminView view= new AdminView();
-		    			  ////
-		    			  
-		    			  	
-		    		  }
-		    		  else {
-		    			  JOptionPane.showMessageDialog(null, "ERROR");
-		    			  clearText();
-		   
-		    		  }
-		    		 
-		    	  }			  
-			 }
-		  });
-		 
-		  frame.add(panel); 		
-		  frame.setVisible(true);
-		
-		
+
+		// Main panel
+		JPanel panel = new JPanel(new GridBagLayout());
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.insets = new Insets(10, 10, 10, 10);
+		gbc.anchor = GridBagConstraints.CENTER;
+
+		// Etiqueta para usuario
+		JLabel lblUser = new JLabel("Usuario:");
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		panel.add(lblUser, gbc);
+
+		// Campo de texto para ingresar
+		txtUser = new JTextField(20);
+		gbc.gridx = 1;
+		gbc.gridy = 0;
+		panel.add(txtUser, gbc);
+
+		// Etiqueta para Contraseña
+		JLabel lblPass = new JLabel("Contraseña:");
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		panel.add(lblPass, gbc);
+
+		// Campo de texto para ingresar Contraseña
+		txtPassword = new JPasswordField(20);
+		gbc.gridx = 1;
+		gbc.gridy = 1;
+		panel.add(txtPassword, gbc);
+
+		// Botón de Login
+		btnLogin = new JButton("Login");
+		gbc.gridx = 1;
+		gbc.gridy = 2;
+		panel.add(btnLogin, gbc);
+
+		btnLogin.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+
+				DataUser users = DataUser.getInstance();
+				User[] users2 = users.getUsers();
+				if (e.getSource() == btnLogin) {
+					for (User us : users2) {
+						if (us != null && us.getName().equals(txtUser.getText())
+								&& us.getPassword().equals(txtPassword.getText())) {
+							JOptionPane.showMessageDialog(null, "Bienvenido " + us.getName());
+							frame.dispose();
+							clearText();
+							AdminView view = new AdminView();
+						} else {
+							JOptionPane.showMessageDialog(null, "ERROR");
+							clearText();
+
+						}
+
+					}
+
+				}
+
+			}
+
+		});
+
+		frame.add(panel);
+		frame.setVisible(true);
+
 	}
-	
-	
+
 	// Function to clear the text fields
 	private void clearText() {
-		
-		user.setText("");
-		pass.setText("");
-		
-		
+
+		txtUser.setText("");
+		txtPassword.setText("");
+
 	}
 }
