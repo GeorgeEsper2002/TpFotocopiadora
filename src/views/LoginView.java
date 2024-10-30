@@ -25,7 +25,7 @@ public class LoginView {
 	private JFrame frame;
 	private JTextField txtUser;
 	private JTextField txtPassword;
-	public JButton btnLogin, prueba;
+	public JButton btnLogin;
 
 	public LoginView() {
 
@@ -89,15 +89,16 @@ public class LoginView {
 					for (User us : users2) {
 						if (us != null && us.getName().equals(txtUser.getText())
 								&& us.getPassword().equals(txtPassword.getText())) {
-							//JOptionPane.showMessageDialog(null, "Bienvenido " + us.getName());
-							JOptionPane.showMessageDialog(frame, "Bienvenido "+us.getName(), "",JOptionPane.INFORMATION_MESSAGE);
+							// JOptionPane.showMessageDialog(null, "Bienvenido " + us.getName());
+							JOptionPane.showMessageDialog(frame, "Bienvenido " + us.getName(), "",
+									JOptionPane.INFORMATION_MESSAGE);
 							frame.dispose();
 							clearText();
 							AdminView view = new AdminView();
 						}
 
 					}
-					JOptionPane.showMessageDialog(frame, "ERROR", "ATENCION",JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(frame, "ERROR", "ATENCION", JOptionPane.ERROR_MESSAGE);
 					clearText();
 
 				}
