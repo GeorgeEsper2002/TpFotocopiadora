@@ -10,14 +10,10 @@ public class PrintJob {
 	private String entryDate;
 	private String finishDate;
 	private String deliveryDate;
-	
+	private User user;
 
-	public PrintJob() {
-	
-	}
-	
 	public PrintJob(int id, String description, int copies, String state, String quality, String entryDate,
-			String finishDate, String deliveryDate) {
+			String finishDate, String deliveryDate, User user) {
 		this.id = id;
 		this.description = description;
 		this.copies = copies;
@@ -26,8 +22,14 @@ public class PrintJob {
 		this.entryDate = entryDate;
 		this.finishDate = finishDate;
 		this.deliveryDate = deliveryDate;
+		this.user = user;
 	}
 
+	public PrintJob() {
+	
+	}
+	
+	
 	public String getEntryDate() {
 		return entryDate;
 	}
