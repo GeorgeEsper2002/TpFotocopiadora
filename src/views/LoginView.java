@@ -89,17 +89,16 @@ public class LoginView {
 					for (User us : users2) {
 						if (us != null && us.getName().equals(txtUser.getText())
 								&& us.getPassword().equals(txtPassword.getText())) {
-							JOptionPane.showMessageDialog(null, "Bienvenido " + us.getName());
+							//JOptionPane.showMessageDialog(null, "Bienvenido " + us.getName());
+							JOptionPane.showMessageDialog(frame, "Bienvenido "+us.getName(), "",JOptionPane.INFORMATION_MESSAGE);
 							frame.dispose();
 							clearText();
 							AdminView view = new AdminView();
-						} else {
-							JOptionPane.showMessageDialog(null, "ERROR");
-							clearText();
-
 						}
 
 					}
+					JOptionPane.showMessageDialog(frame, "ERROR", "ATENCION",JOptionPane.ERROR_MESSAGE);
+					clearText();
 
 				}
 
