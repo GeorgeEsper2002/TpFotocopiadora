@@ -3,7 +3,8 @@ package fotocopiadoramain;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import views.LoginView;
-import views.AdminView;
+import views.admin.AdminView;
+import views.user.UserView;
 
 public class Main {
 
@@ -12,7 +13,8 @@ public class Main {
 		// LoginFrame ventanaLogin= new LoginFrame();
 		// JOptionPane.showMessageDialog(null,"Hola mundo");
 		// LoginView login= new LoginView();
-		AdminView admin = new AdminView();
+		//AdminView admin = new AdminView();
+		//UserView user=new UserView();
 	}
 
 }
