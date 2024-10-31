@@ -11,10 +11,18 @@ public class DataUser {
 
 		userDB = new User[10];
 
-		userDB[0] = new User("admin", "admin", 0);
-		userDB[1] = new User("user1", "user1", 1);
-		userDB[2] = new User("user2", "user2", 1);
+		userDB[0] = new User("admin", "admin", 0,"Activado");
+		userDB[1] = new User("user1", "user1", 1,"Activado");
+		userDB[2] = new User("user2", "user2", 1,"Activado");
 
+	}
+
+	public User[] getUserDB() {
+		return userDB;
+	}
+
+	public void setUserDB(User[] userDB) {
+		this.userDB = userDB;
 	}
 
 	// SINGLETON
@@ -26,11 +34,6 @@ public class DataUser {
 		return instance;
 	}
 	
-	
-	public  User[] getUsers() {
-		
-		return userDB;
-	}
 	
 	
 
