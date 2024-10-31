@@ -1,4 +1,4 @@
-package views;
+package views.printjob;
 
 public class PrintJobView {
 

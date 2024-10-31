@@ -1,4 +1,4 @@
-package views;
+package views.admin;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -27,6 +27,7 @@ import javax.swing.JPanel;
  * 
  * */
 import models.User;
+import views.LoginView;
 
 public class AdminView implements ActionListener {
 

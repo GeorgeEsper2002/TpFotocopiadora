@@ -19,6 +19,8 @@ import javax.swing.JTextField;
 
 import models.User;
 import persistence.DataUser;
+import views.admin.AdminView;
+import views.user.UserView;
 
 public class LoginView {
 
