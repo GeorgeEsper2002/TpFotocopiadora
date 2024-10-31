@@ -12,6 +12,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import views.printjob.PrintJobView;
+import views.printjob.ListPrintJobs;
 
 /*
  * Botones de usuario
@@ -21,23 +23,17 @@ import javax.swing.JPanel;
  * 
  */
 
-public class UserView implements ActionListener{
+public class UserView implements ActionListener {
 
-	private JButton addPrintJob,listPrintJobs,closeSession;
-	
+	private JButton addPrintJob, listPrintJobs, closeSession;
+
 	private JFrame frame;
 	private JPanel panel;
-	
-	
-	
-	
-	
-	
-	
+
 	public UserView() {
-		
-		frame=new JFrame("Ventana de usuario");
-		
+
+		frame = new JFrame("Ventana de usuario");
+
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		Toolkit screen = Toolkit.getDefaultToolkit();
@@ -48,56 +44,44 @@ public class UserView implements ActionListener{
 
 		Image icon = screen.getImage("src/views/java.png");
 		frame.setIconImage(icon);
-		
+
 		JPanel panel = new JPanel(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.insets = new Insets(10, 10, 10, 10);
 		gbc.anchor = GridBagConstraints.CENTER;
-		
-		
-		
+
 		// Add print Jobs
-		addPrintJob=new JButton("Agregar Trabajos");
+		addPrintJob = new JButton("Agregar Trabajos");
 		addPrintJob.setFocusable(false);
 		addPrintJob.addActionListener(this);
 		panel.add(addPrintJob);
-		
+
 		// List Print Jobs
-		listPrintJobs=new JButton("Listar Trabajos");
+		listPrintJobs = new JButton("Listar Trabajos");
 		listPrintJobs.setFocusable(false);
 		listPrintJobs.addActionListener(this);
 		panel.add(listPrintJobs);
-		
+
 		// Close Session
-		closeSession=new JButton("Cerrar Sesion");
+		closeSession = new JButton("Cerrar Sesion");
 		closeSession.setFocusable(false);
 		closeSession.addActionListener(this);
 		panel.add(closeSession);
-		
+
 		frame.add(panel);
 		frame.setVisible(true);
 	}
 
-
-
-
-
-
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if(e.getSource()==addPrintJob) {
+		if (e.getSource() == addPrintJob) {
 			System.out.println("Agregar trabajos");
-		}
-		else if(e.getSource()==listPrintJobs) {
+		} else if (e.getSource() == listPrintJobs) {
 			System.out.println("Listar Trabajos");
-		}
-		else if(e.getSource()==closeSession) {
+		} else if (e.getSource() == closeSession) {
 			System.out.println("Cerrar sesion");
 		}
 	}
 
-	
-	
 }

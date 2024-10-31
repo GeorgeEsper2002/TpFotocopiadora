@@ -77,6 +77,7 @@ public class LoginView {
 
 		// Botón de Login
 		btnLogin = new JButton("Login");
+		btnLogin.setFocusable(false);
 		gbc.gridx = 1;
 		gbc.gridy = 2;
 		panel.add(btnLogin, gbc);
@@ -86,7 +87,7 @@ public class LoginView {
 			public void actionPerformed(ActionEvent e) {
 
 				DataUser users = DataUser.getInstance();
-				User[] users2 = users.getUsers();
+				User[] users2 = users.getUserDB();
 				
 				boolean flag=false;
 				
@@ -110,7 +111,7 @@ public class LoginView {
 					
 				}
 				if(!flag) {
-					JOptionPane.showMessageDialog(frame, "ERROR", "ATENCION",JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(frame, "Contraseña o usuario incorrectos", "ATENCION",JOptionPane.ERROR_MESSAGE);
 					clearText();
 				}
 				

@@ -28,6 +28,8 @@ import javax.swing.JPanel;
  * */
 import models.User;
 import views.LoginView;
+import views.printjob.*;
+import views.user.*;
 
 public class AdminView implements ActionListener {
 
@@ -49,41 +51,39 @@ public class AdminView implements ActionListener {
 
 		Image icon = screen.getImage("src/views/java.png");
 		frame.setIconImage(icon);
-		
-		
-		
+
 		JPanel panel = new JPanel(new GridBagLayout());
-	    GridBagConstraints gbc = new GridBagConstraints();
-	    gbc.insets = new Insets(10, 10, 10, 10);
-	    gbc.gridx = 0;
-	    gbc.gridy = 0;
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.insets = new Insets(10, 10, 10, 10);
+		gbc.gridx = 0;
+		gbc.gridy = 0;
 
-	    // Add users
-	    addUsers = new JButton("Agregar Usuarios ");
-	    addUsers.addActionListener(this);
-	    addUsers.setFocusable(false);
-	    panel.add(addUsers, gbc);
+		// Add users
+		addUsers = new JButton("Agregar Usuarios ");
+		addUsers.addActionListener(this);
+		addUsers.setFocusable(false);
+		panel.add(addUsers, gbc);
 
-	    // List Jobs
-	    gbc.gridx++;
-	    listJobs = new JButton("Listar Trabajos");
-	    listJobs.addActionListener(this);
-	    listJobs.setFocusable(false);
-	    panel.add(listJobs, gbc);
+		// List Jobs
+		gbc.gridx++;
+		listJobs = new JButton("Listar Trabajos");
+		listJobs.addActionListener(this);
+		listJobs.setFocusable(false);
+		panel.add(listJobs, gbc);
 
-	    // List Users
-	    gbc.gridx++;
-	    listUsers = new JButton("Listar Usuarios");
-	    listUsers.addActionListener(this);
-	    listUsers.setFocusable(false);
-	    panel.add(listUsers, gbc);
+		// List Users
+		gbc.gridx++;
+		listUsers = new JButton("Listar Usuarios");
+		listUsers.addActionListener(this);
+		listUsers.setFocusable(false);
+		panel.add(listUsers, gbc);
 
-	    // return to login
-	    gbc.gridx++;
-	    returnToLogin = new JButton("Volver al inicio de sesion");
-	    returnToLogin.addActionListener(this);
-	    returnToLogin.setFocusable(false);
-	    panel.add(returnToLogin, gbc);
+		// return to login
+		gbc.gridx++;
+		returnToLogin = new JButton("Volver al inicio de sesion");
+		returnToLogin.addActionListener(this);
+		returnToLogin.setFocusable(false);
+		panel.add(returnToLogin, gbc);
 
 		/*
 		 * JPanel panel = new JPanel();
@@ -115,7 +115,6 @@ public class AdminView implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource() == addUsers) {
-
 			System.out.println("agregar usuarios");
 		} else if (e.getSource() == listJobs) {
 			System.out.println("Listar trabajos");
