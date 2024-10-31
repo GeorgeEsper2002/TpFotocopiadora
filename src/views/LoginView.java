@@ -85,24 +85,33 @@ public class LoginView {
 
 				DataUser users = DataUser.getInstance();
 				User[] users2 = users.getUsers();
-				if (e.getSource() == btnLogin) {
-					for (User us : users2) {
-						if (us != null && us.getName().equals(txtUser.getText())
-								&& us.getPassword().equals(txtPassword.getText())) {
-							// JOptionPane.showMessageDialog(null, "Bienvenido " + us.getName());
-							JOptionPane.showMessageDialog(frame, "Bienvenido " + us.getName(), "",
-									JOptionPane.INFORMATION_MESSAGE);
-							frame.dispose();
-							clearText();
-							AdminView view = new AdminView();
+				
+				boolean flag=false;
+				
+				for(User user:users2) {
+					if(user!=null) {
+						// Es admin
+						if(txtUser.getText().equals(user.getName()) && txtPassword.getText().equals(user.getPassword())){
+							if(user.getRole()==0) {
+								flag=true;
+								frame.dispose();
+								AdminView admin=new AdminView();
+							}
+							else {
+								flag=true;
+								frame.dispose();
+								UserView userView=new UserView();
+							}
+							
 						}
-
 					}
-					JOptionPane.showMessageDialog(frame, "ERROR", "ATENCION", JOptionPane.ERROR_MESSAGE);
-					clearText();
-
+					
 				}
-
+				if(!flag) {
+					JOptionPane.showMessageDialog(frame, "ERROR", "ATENCION",JOptionPane.ERROR_MESSAGE);
+					clearText();
+				}
+				
 			}
 
 		});
