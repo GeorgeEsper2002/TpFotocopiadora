@@ -5,13 +5,17 @@ public class User {
 	private String name;
 	private String password;
 	private int role;// 0-Admin 1-User
+	private String state;// Deactivated-Activated
 	
 	
-	public User(String name, String password, int role) {
-		
+	
+
+	public User(String name, String password, int role, String state) {
+		super();
 		this.name = name;
 		this.password = password;
 		this.role = role;
+		this.state = state;
 	}
 
 

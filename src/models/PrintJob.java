@@ -11,9 +11,11 @@ public class PrintJob {
 	private String finishDate;
 	private String deliveryDate;
 	private User user;
+	private User handler;//encargado
 
+	
 	public PrintJob(int id, String description, int copies, String state, String quality, String entryDate,
-			String finishDate, String deliveryDate, User user) {
+			String finishDate, String deliveryDate, User user, User handler) {
 		this.id = id;
 		this.description = description;
 		this.copies = copies;
@@ -23,7 +25,9 @@ public class PrintJob {
 		this.finishDate = finishDate;
 		this.deliveryDate = deliveryDate;
 		this.user = user;
+		this.handler = handler;
 	}
+
 
 	public PrintJob() {
 	
@@ -79,5 +83,26 @@ public class PrintJob {
 		this.id = id;
 	}
 
+
+	public User getUser() {
+		return user;
+	}
+
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+
+	public User getHandler() {
+		return handler;
+	}
+
+
+	public void setHandler(User handler) {
+		this.handler = handler;
+	}
+
+	
 	
 }
