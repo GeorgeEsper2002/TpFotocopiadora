@@ -55,12 +55,26 @@ public class UserView implements ActionListener{
 		gbc.anchor = GridBagConstraints.CENTER;
 		
 		
-		// Poner botones
 		
+		// Add print Jobs
+		addPrintJob=new JButton("Agregar Trabajos");
+		addPrintJob.setFocusable(false);
+		addPrintJob.addActionListener(this);
+		panel.add(addPrintJob);
 		
+		// List Print Jobs
+		listPrintJobs=new JButton("Listar Trabajos");
+		listPrintJobs.setFocusable(false);
+		listPrintJobs.addActionListener(this);
+		panel.add(listPrintJobs);
 		
+		// Close Session
+		closeSession=new JButton("Cerrar Sesion");
+		closeSession.setFocusable(false);
+		closeSession.addActionListener(this);
+		panel.add(closeSession);
 		
-		
+		frame.add(panel);
 		frame.setVisible(true);
 	}
 
@@ -73,7 +87,15 @@ public class UserView implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
+		if(e.getSource()==addPrintJob) {
+			System.out.println("Agregar trabajos");
+		}
+		else if(e.getSource()==listPrintJobs) {
+			System.out.println("Listar Trabajos");
+		}
+		else if(e.getSource()==closeSession) {
+			System.out.println("Cerrar sesion");
+		}
 	}
 
 	
