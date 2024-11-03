@@ -46,8 +46,8 @@ public class AdminView implements ActionListener {
 		Toolkit screen = Toolkit.getDefaultToolkit();
 		Dimension dimension = screen.getScreenSize();
 
-		frame.setSize(dimension.width / 2, dimension.height / 2);
-		frame.setLocation(dimension.width / 4, dimension.height / 4);
+		frame.setSize(800,600);
+		frame.setLocationRelativeTo(null);
 
 		Image icon = screen.getImage("src/views/java.png");
 		frame.setIconImage(icon);
@@ -116,10 +116,14 @@ public class AdminView implements ActionListener {
 		// TODO Auto-generated method stub
 		if (e.getSource() == addUsers) {
 			System.out.println("agregar usuarios");
+			frame.dispose();
+			AddUser adduser= new AddUser();
 		} else if (e.getSource() == listJobs) {
 			System.out.println("Listar trabajos");
 		} else if (e.getSource() == listUsers) {
 			System.out.println("Listar usuarios");
+			frame.dispose();
+			ListUsers list=new ListUsers();
 
 		} else if (e.getSource() == returnToLogin) {
 

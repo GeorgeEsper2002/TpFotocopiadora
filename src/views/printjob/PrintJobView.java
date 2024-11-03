@@ -34,8 +34,8 @@ public class PrintJobView {
 		Toolkit screen = Toolkit.getDefaultToolkit();
 		Dimension dimension = screen.getScreenSize();
 
-		frame.setSize(dimension.width / 2, dimension.height / 2);
-		frame.setLocation(dimension.width / 4, dimension.height / 4);
+		frame.setSize(800,600);
+		frame.setLocationRelativeTo(null);
 
 		Image icon = screen.getImage("src/views/java.png");
 		frame.setIconImage(icon);
