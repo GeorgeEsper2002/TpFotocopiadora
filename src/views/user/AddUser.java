@@ -15,8 +15,11 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import service.UserService;
+import views.admin.AdminView;
 
 // Window to create users
 public class AddUser implements ActionListener{
@@ -106,7 +109,7 @@ public class AddUser implements ActionListener{
         addUserPanel.add(lblRole, gbc);
 
         gbc.gridx = 1;
-        String[] roles = {"Admin", "User"};
+        String[] roles = {"User","Admin"};
         comboRole = new JComboBox<>(roles);
         addUserPanel.add(comboRole, gbc);
 
@@ -150,13 +153,18 @@ public class AddUser implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource()==create) {
-			System.out.println("Son todas putas");
+			String answer = UserService.createUser(txtName.getText(),txtPass.getText(),comboRole.getSelectedItem().toString());
+			JOptionPane.showMessageDialog(null,answer);
 		}
 		else if(e.getSource()==comboState) {
 			System.out.println("seco");
 		}
 		else if(e.getSource()==clear) {
 			clearText();
+		}
+		else if(e.getSource()==back) {
+			frame.dispose();
+			AdminView admin=new AdminView();
 		}
 	}
 	
