@@ -80,6 +80,7 @@ public class UserView implements ActionListener {
 		} else if (e.getSource() == listPrintJobs) {
 			System.out.println("Listar Trabajos");
 		} else if (e.getSource() == closeSession) {
+			frame.dispose();
 			System.out.println("Cerrar sesion");
 		}
 	}
