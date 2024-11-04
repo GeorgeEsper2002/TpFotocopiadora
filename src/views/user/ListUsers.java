@@ -13,6 +13,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import persistence.DataUser;
+import views.admin.AdminView;
 
 //Hacer tipo tabla la vista de listar usuarios
 public class ListUsers implements ActionListener {
@@ -38,7 +39,14 @@ public class ListUsers implements ActionListener {
 		deactivate=new JButton();
 		makeAdmin=new JButton();
 		makeUser=new JButton();
+		
+		
 		back=new JButton();
+		back.setFocusable(false);
+		
+		
+		
+		
 		model=new DefaultTableModel();
 		scroll=new JScrollPane();
 		
@@ -54,7 +62,7 @@ public class ListUsers implements ActionListener {
 		
 		scroll.setViewportView(table);
 		
-		
+		frame.add(back);
 		
 		
 		
@@ -92,7 +100,10 @@ public class ListUsers implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
+		if(e.getSource()==back) {
+			frame.dispose();
+			AdminView admin=new AdminView();
+		}
 	}
 
 }
