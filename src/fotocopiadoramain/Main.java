@@ -7,18 +7,19 @@ import models.PrintJob;
 import views.LoginView;
 import views.admin.AdminView;
 import views.printjob.PrintJobView;
+import views.user.ListUsers;
 import views.user.UserView;
 
 public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		// LoginFrame ventanaLogin= new LoginFrame();
 		// JOptionPane.showMessageDialog(null,"Hola mundo");
-		 //LoginView login= new LoginView();
+		// LoginView login= new LoginView();
 		//AdminView admin = new AdminView();
 		//UserView user=new UserView();
 		PrintJobView print=new PrintJobView();
+		//ListUsers list=new ListUsers();
 	}
 
 }

@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import views.printjob.PrintJobView;
+import views.LoginView;
 import views.printjob.ListPrintJobs;
 
 /*
@@ -81,7 +82,7 @@ public class UserView implements ActionListener {
 			System.out.println("Listar Trabajos");
 		} else if (e.getSource() == closeSession) {
 			frame.dispose();
-			System.out.println("Cerrar sesion");
+			LoginView login=new LoginView();
 		}
 	}
 

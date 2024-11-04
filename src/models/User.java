@@ -4,13 +4,15 @@ public class User {
 
 	private String name;
 	private String password;
-	private int role;// 0-Admin 1-User
-	private String state;// Deactivated-Activated
+	private String role;// 0-Admin 1-User
+	private boolean state;// Deactivated-Activated
 	
 	
 	
 
-	public User(String name, String password, int role, String state) {
+
+
+	public User(String name, String password, String role, boolean state) {
 		super();
 		this.name = name;
 		this.password = password;
@@ -44,12 +46,12 @@ public class User {
 	}
 
 
-	public int getRole() {
+	public String getRole() {
 		return role;
 	}
 
 
-	public void setRole(int role) {
+	public void setRole(String role) {
 		this.role = role;
 	}
 
@@ -59,6 +61,18 @@ public class User {
 		return "User [name=" + name +"Password: " +password +"]";
 	}
 
+
+	public boolean isState() {
+		return state;
+	}
+
+
+	public void setState(boolean state) {
+		this.state = state;
+	}
+
+	
+	 
 
 	
 	

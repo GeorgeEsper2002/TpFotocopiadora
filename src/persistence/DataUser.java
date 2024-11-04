@@ -11,14 +11,34 @@ public class DataUser {
 
 		userDB = new User[10];
 
-		userDB[0] = new User("admin", "admin", 0,"Activado");
-		userDB[1] = new User("user1", "user1", 1,"Activado");
-		userDB[2] = new User("user2", "user2", 1,"Activado");
+		userDB[0] = new User("admin", "admin", "0", true);
+		userDB[1] = new User("user1", "user1", "1", true);
+		userDB[2] = new User("user2", "user2", "1", true);
 
 	}
 
 	public User[] getUserDB() {
-		return userDB;
+		int counter = 0;
+		for (User user : userDB) {
+			if (user != null) {
+
+				counter++;
+
+			}
+
+		}
+
+		User[] allUsers = new User[counter];
+		int index = 0;
+		for (User user : userDB) {
+			if (user != null) {
+
+				allUsers[index] = user;
+				index++;
+
+			}
+		}
+		return allUsers;
 	}
 
 	public void setUserDB(User[] userDB) {
@@ -33,8 +53,5 @@ public class DataUser {
 		}
 		return instance;
 	}
-	
-	
-	
 
 }
