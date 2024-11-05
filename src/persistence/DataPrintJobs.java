@@ -7,10 +7,11 @@ public class DataPrintJobs {
 
 	private static DataPrintJobs instance;
 	private PrintJob[] printJobDB;
-
+	private User admin;
 	private DataPrintJobs() {
+		admin=DataUser.getInstance().getAdmin();
 		printJobDB = new PrintJob[20];
-		printJobDB[0] = new PrintJob(1, "descripcion", 22, "estado", "byn", "10/10/24", "12/10/24", "15/10/24", null,null);
+		printJobDB[0] = new PrintJob(1, "Calculo I", 22, "estado", "byn", "10/10/24", "12/10/24", "15/10/24", null,admin);
 
 	}
 
@@ -24,7 +25,22 @@ public class DataPrintJobs {
 	}
 
 	public PrintJob[] getPrintJobDB() {
-		return printJobDB;
+		int counter = 0;
+		for(PrintJob printJob:printJobDB) {
+			if(printJob!=null) {
+				counter++;
+			}
+		}
+		PrintJob[] allJobs=new PrintJob[counter];
+		int index=0;
+		for(PrintJob printJob:printJobDB) {
+			if(printJob!=null) {
+				allJobs[index]=printJob;
+				index++;
+			}
+		}
+		
+		return allJobs;
 	}
 
 	public void setPrintJobDB(PrintJob[] printJobDB) {

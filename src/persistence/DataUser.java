@@ -53,5 +53,10 @@ public class DataUser {
 		}
 		return instance;
 	}
+	
+	public static User getAdmin() {
+		User admin = getInstance().userDB[0];
+		return admin;
+	}
 
 }
