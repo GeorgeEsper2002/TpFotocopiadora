@@ -12,6 +12,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import models.User;
+import persistence.DataUser;
 import views.printjob.PrintJobView;
 import views.LoginView;
 import views.printjob.ListPrintJobs;
@@ -30,18 +33,20 @@ public class UserView implements ActionListener {
 
 	private JFrame frame;
 	private JPanel panel;
+	private User currentUser;
 
-	public UserView() {
+	public UserView(String userName) {
 
-		frame = new JFrame("Ventana de usuario");
+		currentUser = DataUser.getLoggedUser(userName);
+		frame = new JFrame("Ventana de usuario-" + currentUser.getName());
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		Toolkit screen = Toolkit.getDefaultToolkit();
 		Dimension dimension = screen.getScreenSize();
 
-		frame.setSize(dimension.width / 2, dimension.height / 2);
-		frame.setLocation(dimension.width / 4, dimension.height / 4);
+		frame.setSize(800, 600);
+		frame.setLocationRelativeTo(null);
 
 		Image icon = screen.getImage("src/views/java.png");
 		frame.setIconImage(icon);
@@ -52,22 +57,26 @@ public class UserView implements ActionListener {
 		gbc.anchor = GridBagConstraints.CENTER;
 
 		// Add print Jobs
+		gbc.gridx = 0;
+		gbc.gridy = 0;
 		addPrintJob = new JButton("Agregar Trabajos");
 		addPrintJob.setFocusable(false);
 		addPrintJob.addActionListener(this);
-		panel.add(addPrintJob);
+		panel.add(addPrintJob, gbc);
 
 		// List Print Jobs
+		gbc.gridx = 1;
 		listPrintJobs = new JButton("Listar Trabajos");
 		listPrintJobs.setFocusable(false);
 		listPrintJobs.addActionListener(this);
-		panel.add(listPrintJobs);
+		panel.add(listPrintJobs, gbc);
 
 		// Close Session
+		gbc.gridx = 2;
 		closeSession = new JButton("Cerrar Sesion");
 		closeSession.setFocusable(false);
 		closeSession.addActionListener(this);
-		panel.add(closeSession);
+		panel.add(closeSession, gbc);
 
 		frame.add(panel);
 		frame.setVisible(true);
@@ -77,12 +86,14 @@ public class UserView implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource() == addPrintJob) {
+			frame.dispose();
+			PrintJobView print = new PrintJobView(currentUser.getName());
 			System.out.println("Agregar trabajos");
 		} else if (e.getSource() == listPrintJobs) {
 			System.out.println("Listar Trabajos");
 		} else if (e.getSource() == closeSession) {
 			frame.dispose();
-			LoginView login=new LoginView();
+			LoginView login = new LoginView();
 		}
 	}
 
