@@ -53,10 +53,22 @@ public class DataUser {
 		}
 		return instance;
 	}
-	
+
 	public static User getAdmin() {
 		User admin = getInstance().userDB[0];
 		return admin;
+	}
+
+	// Function to get logged user
+	public static User getLoggedUser(String userName) {
+		User[] userDB1 = DataUser.getInstance().getUserDB();
+		for (User user : userDB1) {
+			if (user.getName().equals(userName)) {
+				return user;
+			}
+		}
+
+		return null;
 	}
 
 }
