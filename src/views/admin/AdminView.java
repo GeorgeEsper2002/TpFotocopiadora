@@ -46,7 +46,7 @@ public class AdminView implements ActionListener {
 		Toolkit screen = Toolkit.getDefaultToolkit();
 		Dimension dimension = screen.getScreenSize();
 
-		frame.setSize(800,600);
+		frame.setSize(800, 600);
 		frame.setLocationRelativeTo(null);
 
 		Image icon = screen.getImage("src/views/java.png");
@@ -85,28 +85,6 @@ public class AdminView implements ActionListener {
 		returnToLogin.setFocusable(false);
 		panel.add(returnToLogin, gbc);
 
-		/*
-		 * JPanel panel = new JPanel();
-		 * 
-		 * // Add users addUsers = new JButton("Agregar Usuarios ");
-		 * addUsers.addActionListener(this); addUsers.setFocusable(false);
-		 * panel.add(addUsers);
-		 * 
-		 * // List Jobs listJobs = new JButton("Listar Trabajos");
-		 * listJobs.addActionListener(this); listJobs.setFocusable(false);
-		 * panel.add(listJobs);
-		 * 
-		 * // List Users listUsers = new JButton("Listar Usuarios");
-		 * listUsers.addActionListener(this); listUsers.setFocusable(false);
-		 * panel.add(listUsers);
-		 * 
-		 * // return to login
-		 * 
-		 * returnToLogin = new JButton("Volver al inicio de sesion");
-		 * returnToLogin.addActionListener(this); returnToLogin.setFocusable(false);
-		 * panel.add(returnToLogin);
-		 */
-
 		frame.add(panel);
 		frame.setVisible(true);
 	}
@@ -115,19 +93,15 @@ public class AdminView implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource() == addUsers) {
-			System.out.println("agregar usuarios");
 			frame.dispose();
-			AddUser adduser= new AddUser();
+			AddUser adduser = new AddUser();
 		} else if (e.getSource() == listJobs) {
 			System.out.println("Listar trabajos");
 		} else if (e.getSource() == listUsers) {
-			System.out.println("Listar usuarios");
 			frame.dispose();
-			ListUsers list=new ListUsers();
+			ListUsers list = new ListUsers();
 
 		} else if (e.getSource() == returnToLogin) {
-
-			System.out.println("volver");
 			frame.dispose();
 			LoginView login = new LoginView();
 		}
