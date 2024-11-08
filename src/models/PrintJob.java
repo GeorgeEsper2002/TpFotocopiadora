@@ -4,7 +4,7 @@ public class PrintJob {
 
 	private int id;
 	private String description;
-	private int copies;
+	private String copies;
 	private String state;
 	private String quality;
 	private String entryDate;
@@ -14,7 +14,7 @@ public class PrintJob {
 	private User handler;//encargado
 
 	
-	public PrintJob(int id, String description, int copies, String state, String quality, String entryDate,
+	public PrintJob(int id, String description, String copies, String state, String quality, String entryDate,
 			String finishDate, String deliveryDate, User user, User handler) {
 		this.id = id;
 		this.description = description;
@@ -58,10 +58,10 @@ public class PrintJob {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public int getCopies() {
+	public String getCopies() {
 		return copies;
 	}
-	public void setCopies(int copies) {
+	public void setCopies(String copies) {
 		this.copies = copies;
 	}
 	public String getState() {
