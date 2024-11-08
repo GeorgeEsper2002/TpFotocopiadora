@@ -39,7 +39,7 @@ public class LoginView {
 		Toolkit screen = Toolkit.getDefaultToolkit();
 		Dimension dimension = screen.getScreenSize();
 
-		frame.setSize(800,600);
+		frame.setSize(800, 600);
 		frame.setLocationRelativeTo(null);
 
 		Image icon = screen.getImage("src/views/java.png");
@@ -88,33 +88,34 @@ public class LoginView {
 
 				DataUser users = DataUser.getInstance();
 				User[] users2 = users.getUserDB();
-				
-				boolean flag=false;
-				
-				for(User user:users2) {
-					if(user!=null) {
+
+				boolean flag = false;
+
+				for (User user : users2) {
+					if (user != null) {
 						// Es admin
-						if(txtUser.getText().equals(user.getName()) && txtPassword.getText().equals(user.getPassword())){
-							if(user.getRole().equals("0")) {
-								flag=true;
+						if (txtUser.getText().equals(user.getName())
+								&& txtPassword.getText().equals(user.getPassword())) {
+							if (user.getRole().equals("0")) {
+								flag = true;
 								frame.dispose();
-								AdminView admin=new AdminView();
-							}
-							else {
-								flag=true;
+								AdminView admin = new AdminView();
+							} else {
+								flag = true;
 								frame.dispose();
-								UserView userView=new UserView();
+								UserView userView = new UserView(user.getName());
 							}
-							
+
 						}
 					}
-					
+
 				}
-				if(!flag) {
-					JOptionPane.showMessageDialog(frame, "Contraseña o usuario incorrectos", "ATENCION",JOptionPane.ERROR_MESSAGE);
+				if (!flag) {
+					JOptionPane.showMessageDialog(frame, "Contraseña o usuario incorrectos", "ATENCION",
+							JOptionPane.ERROR_MESSAGE);
 					clearText();
 				}
-				
+
 			}
 
 		});
