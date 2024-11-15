@@ -2,6 +2,7 @@ package service;
 
 import models.User;
 import persistence.DataBaseLogic;
+import persistence.DataUser;
 // Aca va estar toda la logica relacionada con la manipulacion de usuarios
 public class UserService {
 	
@@ -37,8 +38,29 @@ public class UserService {
 		return true;
 	}
 	
-	
-	
+	// Do matrix that contains user,state,role
+	public static String[][] listUsers() {
+		User[] userDB=DataUser.getInstance().getUserDB();
+		String[][] userData=new String[userDB.length][3];
+		
+		for(int i = 0; i<userDB.length;i++){
+			//UserName
+			userData[i][0]=userDB[i].getName();
+			// Role
+			userData[i][1]=userDB[i].getRole();
+			// State
+			if(userDB[i].isState()==true) {
+				userData[i][2]="Activado";
+			}
+			else {
+				userData[i][2]="Desactivado";
+			}
+		}
+		
+		
+		
+		return userData;
+	}
 	
 	
 	
