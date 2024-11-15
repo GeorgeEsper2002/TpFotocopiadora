@@ -123,5 +123,13 @@ public class DataBaseLogic {
 	// Set Job
 	// Delete Job
 	// Edit Job
+	
+	public static PrintJob editPrintJob() {
+	 return null;	
+	}
+	
+	public static User editUser() {
+		 return null;	
+		}
 
 }
