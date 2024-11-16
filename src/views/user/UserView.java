@@ -90,6 +90,8 @@ public class UserView implements ActionListener {
 			PrintJobView print = new PrintJobView(currentUser.getName());
 			System.out.println("Agregar trabajos");
 		} else if (e.getSource() == listPrintJobs) {
+			frame.dispose();
+			ListPrintJobs list=new ListPrintJobs(currentUser.getName());
 			System.out.println("Listar Trabajos");
 		} else if (e.getSource() == closeSession) {
 			frame.dispose();
