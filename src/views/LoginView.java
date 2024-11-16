@@ -29,6 +29,7 @@ public class LoginView {
 	private JTextField txtPassword;
 	public JButton btnLogin;
 
+	// Constructor
 	public LoginView() {
 
 		frame = new JFrame();
