@@ -27,6 +27,7 @@ import javax.swing.JPanel;
  * 
  * */
 import models.User;
+import persistence.DataUser;
 import views.LoginView;
 import views.printjob.*;
 import views.user.*;
@@ -35,9 +36,9 @@ public class AdminView implements ActionListener {
 
 	private JFrame frame;
 	public JButton addUsers, listJobs, listUsers, returnToLogin;
-
+	private User admin;
 	public AdminView() {
-
+		admin=DataUser.getAdmin();
 		frame = new JFrame();
 		frame.setTitle("Admin");
 		frame.setLocationRelativeTo(null);
@@ -96,7 +97,8 @@ public class AdminView implements ActionListener {
 			frame.dispose();
 			AddUser adduser = new AddUser();
 		} else if (e.getSource() == listJobs) {
-			System.out.println("Listar trabajos");
+			frame.dispose();
+			ListPrintJobs jobs=new ListPrintJobs(admin.getName());
 		} else if (e.getSource() == listUsers) {
 			frame.dispose();
 			ListUsers list = new ListUsers();
