@@ -20,13 +20,18 @@ public class DataPrintJobs {
 		SimpleDateFormat formatoFecha=new SimpleDateFormat("dd/MM/yyyy", new Locale("es", "AR"));
 		String fechaFormateada = formatoFecha.format(fechaRecibo);
 		String userName = "user1";
+		String userName1="user2";
 		user = DataUser.getLoggedUser(userName);
 		DataUser.getInstance();
 		admin = DataUser.getAdmin();
 		printJobDB = new PrintJob[20];
-		printJobDB[0] = new PrintJob(1, "Calculo I", "22", "estado", "byn", fechaFormateada, "12/10/24", "15/10/24", user,
+		printJobDB[0] = new PrintJob(1, "Calculo I", "22", "Recibido", "byn", fechaFormateada, "", "", user,
 				admin);
-
+		printJobDB[1]=new PrintJob(2, "Calculo II", "5", "Pendiente", "byn", fechaFormateada, "", "", user,
+				admin);
+		printJobDB[2]=new PrintJob(3, "Fisica I", "22", "Recibido", "byn", fechaFormateada, "", "",DataUser.getLoggedUser(userName1),
+				admin);
+		
 		// { recibido,ejecución,terminado,entregado)}
 	}
 
