@@ -98,7 +98,7 @@ public class AdminView implements ActionListener {
 			AddUser adduser = new AddUser();
 		} else if (e.getSource() == listJobs) {
 			frame.dispose();
-			ListPrintJobs jobs=new ListPrintJobs(admin.getName());
+			ListPrintJobsAdmin jobs=new ListPrintJobsAdmin(admin.getName());
 		} else if (e.getSource() == listUsers) {
 			frame.dispose();
 			ListUsers list = new ListUsers();
