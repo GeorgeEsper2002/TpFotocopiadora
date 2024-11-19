@@ -2,6 +2,7 @@ package persistence;
 
 import models.PrintJob;
 import models.User;
+import service.UserService;
 
 public class DataBaseLogic {
 
@@ -74,7 +75,20 @@ public class DataBaseLogic {
 		return "Usuario eliminado con exito";
 	}
 
-	// Edit User
+	public static User editUser(String userName, String role, boolean state) {
+		User[] userDB = DataUser.getInstance().getUserDB();
+		User user = new User();
+		for (int i = 0; i < userDB.length; i++) {
+			if (userDB[i].getName().equals(userName)) {
+				user = userDB[i];
+				user.setName(userName);
+				user.setRole(role);
+				user.setState(state);
+			}
+		}
+
+		return user;
+	}
 
 	// Find all Jobs
 	public static PrintJob[] findAllJobs() {
@@ -122,29 +136,37 @@ public class DataBaseLogic {
 
 	// Set Job
 	// Delete Job
-	// Edit Job
 
-	public static PrintJob editPrintJob() {
-		return null;
-	}
+	public static PrintJob editPrintJob(int printJobId, String description, String copies, String quality) {
+		PrintJob[] jobs = DataPrintJobs.getInstance().getPrintJobDB();
+		PrintJob job = new PrintJob();
+		for (int i = 0; i < jobs.length; i++) {
+			if (jobs[i].getId() == printJobId) {
+				job.setDescription(description);
+				job.setCopies(copies);
+				job.setQuality(quality);
+			}
+		}
 
-	public static User editUser() {
-		return null;
+		return job;
 	}
 
 	public static PrintJob[] getPrintJobsByUser(String userName) {
+
+		User user = UserService.getUser(userName);
 		PrintJob[] printJobDB = DataPrintJobs.getInstance().getPrintJobDB();
 		int index = 0;
 		int counter = 0;
+		String name = user.getName();
 		for (int i = 0; i < printJobDB.length; i++) {
-			if (printJobDB[i].getUser().equals(userName)) {
+			if (printJobDB[i].getUser().getName().equals(name)) {
 				counter++;
 			}
 		}
 		PrintJob[] printJobUser = new PrintJob[counter];
 
 		for (PrintJob job : printJobDB) {
-			if (job.getUser().equals(userName)) {
+			if (job.getUser().getName().equals(name)) {
 				printJobUser[index] = job;
 				index++;
 			}
