@@ -97,6 +97,11 @@ public class LoginView {
 						// Es admin
 						if (txtUser.getText().equals(user.getName())
 								&& txtPassword.getText().equals(user.getPassword())) {
+							if (!user.isState()) { // Verificar si el usuario está desactivado
+					                        JOptionPane.showMessageDialog(frame, "Usuario desactivado. No puede iniciar sesión.", "ATENCION", JOptionPane.ERROR_MESSAGE);
+					                        clearText();
+					                        return;
+					                    }
 							if (user.getRole().equals("0")) {
 								flag = true;
 								frame.dispose();
