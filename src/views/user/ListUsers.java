@@ -8,12 +8,14 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import persistence.DataUser;
+import models.User;
+import persistence.DataBaseLogic;
 import service.UserService;
 import views.admin.AdminView;
 
@@ -22,7 +24,7 @@ public class ListUsers implements ActionListener {
 
 	private JFrame frame;
 	private JPanel buttons;
-	private JButton activate, deactivate, makeAdmin, makeUser, back,edit;
+	private JButton  back, edit;
 	private JTable table;
 	private DefaultTableModel model;
 	private JScrollPane scroll;
@@ -38,31 +40,16 @@ public class ListUsers implements ActionListener {
 		frame.setSize(800, 600);
 
 		// Buttons
-		activate = new JButton("Activar");
-		deactivate = new JButton("Desactivar");
-		makeAdmin = new JButton("Hacer Administrador");
-		makeUser = new JButton("Hacer Usuario");
 		back = new JButton("Atras");
-		edit=new JButton("Editar");
+		edit = new JButton("Editar");
 		back.setFocusable(false);
-		activate.setFocusable(false);
-		makeAdmin.setFocusable(false);
-		makeUser.setFocusable(false);
 
 		// events
 		back.addActionListener(this);
-		activate.addActionListener(this);
-		deactivate.addActionListener(this);
-		makeAdmin.addActionListener(this);
-		makeUser.addActionListener(this);
 		edit.addActionListener(this);
 
 		// Panel to add buttons
 		buttons = new JPanel();
-		buttons.add(activate);
-		buttons.add(deactivate);
-		buttons.add(makeAdmin);
-		buttons.add(makeUser);
 		buttons.add(back);
 		buttons.add(edit);
 
@@ -91,22 +78,52 @@ public class ListUsers implements ActionListener {
 		if (e.getSource() == back) {
 			frame.dispose();
 			AdminView admin = new AdminView();
-		}
-		else if(e.getSource()==makeAdmin) {
-			System.out.println("Hacer Admin");
-		}
-		else if(e.getSource()==makeUser) {
-			System.out.println("Hacer Usuario");
-		}
-		else if(e.getSource()==activate) {
-			System.out.println("Activar Usuario");
-		}
-		else if(e.getSource()==deactivate) {
-			System.out.println("Desactivar Usuario");
-		}
-		else if(e.getSource()==edit) {
+		} else if (e.getSource() == edit) {
+			// Logic missing
 			System.out.println("editar Usuario");
+			int selectedRow = table.getSelectedRow();
+			if (selectedRow != -1) {
+				String userName = (String) model.getValueAt(selectedRow, 0); // Nombre de usuario
+				String currentRole = (String) model.getValueAt(selectedRow, 2); // Rol
+				String currentState = (String) model.getValueAt(selectedRow, 1); // Estado
+				boolean newState;
+				// Pedir los nuevos valores
+				String newRole = (String) JOptionPane.showInputDialog(frame, "Ingrese el nuevo rol:", "Editar Rol",
+						JOptionPane.QUESTION_MESSAGE, null, new String[] { "Admin", "User" }, currentRole);
+
+				if (newRole == null) {
+					return; // Si el usuario cancela, no hacer nada
+				}
+
+				String newStateString = (String) JOptionPane.showInputDialog(frame, "Ingrese el nuevo estado:",
+						"Editar Estado", JOptionPane.QUESTION_MESSAGE, null, new String[] { "Activo", "Inactivo" },
+						currentState);
+				if (newStateString == null) {
+					return; // Si el usuario cancela, no hacer nada
+				}
+				if (newStateString.equals("Activo")) {
+					newState = true;
+
+				} // Convertir el estado a booleano
+				else {
+					newState = false;
+				}
+
+				// Editar el usuario en la base de datos (usando el servicio correspondiente)
+				User editedUser = DataBaseLogic.editUser(userName, newRole, newState);
+				DataBaseLogic.saveUser(editedUser);
+				// Actualizar la tabla
+				model.setValueAt(newRole, selectedRow, 2); // Actualizar rol
+				model.setValueAt(newState ? "Activo" : "Inactivo", selectedRow, 1); // Actualizar estado
+
+				// Opcional: Mostrar mensaje de éxito
+				JOptionPane.showMessageDialog(frame, "Usuario actualizado con éxito.");
+			} else {
+				JOptionPane.showMessageDialog(frame, "Seleccione un usuario para editar.", "Error",
+						JOptionPane.ERROR_MESSAGE);
+			}
 		}
+
 	}
 
 }
