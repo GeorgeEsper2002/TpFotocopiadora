@@ -47,19 +47,35 @@ public class UserService {
 			//UserName
 			userData[i][0]=userDB[i].getName();
 			// Role
-			userData[i][1]=userDB[i].getRole();
-			// State
-			if(userDB[i].isState()==true) {
-				userData[i][2]="Activado";
+			if(userDB[i].getRole().equals("0")) {
+				userData[i][2]="Admin";
 			}
 			else {
-				userData[i][2]="Desactivado";
+				userData[i][2]="Usuario";
+			}
+			
+			// State
+			if(userDB[i].isState()==true) {
+				userData[i][1]="Activado";
+			}
+			else {
+				userData[i][1]="Desactivado";
 			}
 		}
 		
 		
 		
 		return userData;
+	}
+	
+	public static User getUser(String userName) {
+		User[] userDB=DataUser.getInstance().getUserDB();
+		for(User user:userDB) {
+			if(user.getName().equals(userName)) {
+				return user;
+			}
+		}
+		return null;
 	}
 	
 	
