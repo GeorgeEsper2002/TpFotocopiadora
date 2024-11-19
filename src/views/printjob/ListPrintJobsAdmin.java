@@ -197,7 +197,8 @@ public class ListPrintJobsAdmin implements ActionListener {
 		}
 		if (e.getSource() == edit) {
 			int selectedRow = table.getSelectedRow();
-			if (selectedRow != -1) { // Verificar si se ha seleccionado una fila
+			if (selectedRow != -1) { 
+				// Verificar si se ha seleccionado una fila
 			       	int printJobId = Integer.parseInt((String) model.getValueAt(selectedRow, 0));
 		            String currentDescription = (String) model.getValueAt(selectedRow, 1);
 		            String currentCopies = (String) model.getValueAt(selectedRow, 2);
@@ -216,8 +217,11 @@ public class ListPrintJobsAdmin implements ActionListener {
 		                return;
 		            }
 
-		            String newQuality = JOptionPane.showInputDialog(null, "Ingresa la nueva calidad:", currentQuality);
-		            if (newQuality == null || newQuality.trim().isEmpty()) {
+		            String[] options= {"Blanco y Negro", "Color"};
+		            JComboBox<String> comboBox = new JComboBox<>(options);
+		            String newQuality = (String) JOptionPane.showInputDialog(frame, "Seleccione el nuevo estado:",
+							"Cambiar estado", JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+		            if (newQuality == null) {
 		                JOptionPane.showMessageDialog(frame, "La calidad no puede estar vacía.", "Error", JOptionPane.ERROR_MESSAGE);
 		                return;
 		            }
