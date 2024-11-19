@@ -14,6 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import models.PrintJob;
 import models.User;
 import persistence.DataBaseLogic;
 import persistence.DataUser;
@@ -91,9 +92,16 @@ public class ListPrintJobs implements ActionListener {
 			int selectedRow = table.getSelectedRow();
 			if (selectedRow != -1) {
 				int printJobId = Integer.parseInt((String) model.getValueAt(selectedRow, 0));
-				DataBaseLogic.deletePrintJob(printJobId);
-				model.removeRow(selectedRow);
-				JOptionPane.showMessageDialog(null, "Trabajo eliminado con exito");
+				PrintJob job=PrintJobService.getJobById(printJobId);
+				if(job.getState().equals("Pendiente")) {
+					DataBaseLogic.deletePrintJob(printJobId);
+					model.removeRow(selectedRow);
+					JOptionPane.showMessageDialog(null, "Trabajo eliminado con exito");	
+				}
+				else {
+					JOptionPane.showMessageDialog(null,"El trabajo esta en proceso");
+				}
+				
 			}
 		}
 
