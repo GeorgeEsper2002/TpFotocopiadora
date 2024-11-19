@@ -8,12 +8,14 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import models.User;
+import persistence.DataBaseLogic;
 import persistence.DataUser;
 import service.PrintJobService;
 import service.UserService;
@@ -33,7 +35,7 @@ public class ListPrintJobs implements ActionListener {
 	public ListPrintJobs(String userName) {
 
 		currentUser = DataUser.getLoggedUser(userName);
-		String[][] jobs = PrintJobService.listPrintJob();
+		String[][] jobs = PrintJobService.listPrintJobsbyUser(userName);
 		frame = new JFrame("Listar Trabajos-");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -54,8 +56,7 @@ public class ListPrintJobs implements ActionListener {
 		deletePrintJob.addActionListener(this);
 		back.addActionListener(this);
 
-		String titles[] = { "Id", "Descripcion", "Estado", "Calidad", "Fecha de entrada", "Fecha Finalizacion",
-				"Fecha de entrega", "Usuario", "Encargado" };
+		String titles[] = { "Id", "Descripcion", "Copias", "Estado", "Calidad"};
 		model = new DefaultTableModel(jobs, titles);
 
 		table = new JTable(model);
@@ -67,7 +68,6 @@ public class ListPrintJobs implements ActionListener {
 		scroll.setBounds(10, 50, 480, 250);
 
 		scroll.setViewportView(table);
-
 
 		frame.setLayout(new BorderLayout());
 		frame.add(scroll, BorderLayout.CENTER);
@@ -87,6 +87,15 @@ public class ListPrintJobs implements ActionListener {
 			UserView user = new UserView(currentUser.getName());
 
 		}
-	}
+		if (e.getSource() == deletePrintJob) {
+			int selectedRow = table.getSelectedRow();
+			if (selectedRow != -1) {
+				int printJobId = Integer.parseInt((String) model.getValueAt(selectedRow, 0));
+				DataBaseLogic.deletePrintJob(printJobId);
+				model.removeRow(selectedRow);
+				JOptionPane.showMessageDialog(null, "Trabajo eliminado con exito");
+			}
+		}
 
+	}
 }
