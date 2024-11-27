@@ -20,6 +20,7 @@ import persistence.DataBaseLogic;
 import persistence.DataUser;
 import service.PrintJobService;
 import service.UserService;
+import views.LoginView;
 import views.user.UserView;
 
 // Hacer vista tipo tabla para listar trabajos
@@ -37,8 +38,15 @@ public class ListPrintJobs implements ActionListener {
 
 		currentUser = DataUser.getLoggedUser(userName);
 		String[][] jobs = PrintJobService.listPrintJobsbyUser(userName);
-		frame = new JFrame("Listar Trabajos-");
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame = new JFrame("Listar Trabajos-"+currentUser.getName());
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		frame.addWindowListener(new java.awt.event.WindowAdapter() {
+		    @Override
+		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+		        frame.dispose();
+		        new UserView(userName);
+		    }
+		});
 
 		Toolkit screen = Toolkit.getDefaultToolkit();
 		Dimension dimension = screen.getScreenSize();

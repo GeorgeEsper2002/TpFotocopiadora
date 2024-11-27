@@ -21,6 +21,7 @@ import javax.swing.JTextField;
 import models.User;
 import persistence.DataUser;
 import service.PrintJobService;
+import views.admin.AdminView;
 import views.user.UserView;
 
 // Vista para agregar Trabajos
@@ -37,7 +38,14 @@ public class PrintJobView implements ActionListener {
 		currentUser = DataUser.getLoggedUser(userName);
 		frame = new JFrame("Ventana de Usuario-" + currentUser.getName());
 		frame.setLocationRelativeTo(null);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		frame.addWindowListener(new java.awt.event.WindowAdapter() {
+		    @Override
+		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+		        frame.dispose();
+		        new UserView(userName);
+		    }
+		});
 
 		JPanel titleBar = new JPanel(new BorderLayout());
 		JLabel titleLabel = new JLabel("Agregar Trabajo", JLabel.CENTER);

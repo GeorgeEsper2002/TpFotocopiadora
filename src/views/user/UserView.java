@@ -32,7 +32,6 @@ public class UserView implements ActionListener {
 	private JButton addPrintJob, listPrintJobs, closeSession;
 
 	private JFrame frame;
-	private JPanel panel;
 	private User currentUser;
 
 	public UserView(String userName) {
@@ -40,7 +39,14 @@ public class UserView implements ActionListener {
 		currentUser = DataUser.getLoggedUser(userName);
 		frame = new JFrame("Ventana de usuario-" + currentUser.getName());
 
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		frame.addWindowListener(new java.awt.event.WindowAdapter() {
+		    @Override
+		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+		        frame.dispose();
+		        new LoginView();
+		    }
+		});
 
 		Toolkit screen = Toolkit.getDefaultToolkit();
 		Dimension dimension = screen.getScreenSize();

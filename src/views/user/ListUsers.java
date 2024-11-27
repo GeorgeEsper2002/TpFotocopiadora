@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import models.User;
 import persistence.DataBaseLogic;
 import service.UserService;
+import views.LoginView;
 import views.admin.AdminView;
 
 //Hacer tipo tabla la vista de listar usuarios
@@ -33,6 +34,14 @@ public class ListUsers implements ActionListener {
 		String[][] users = UserService.listUsers();
 		frame = new JFrame("Listar Usuarios");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		frame.addWindowListener(new java.awt.event.WindowAdapter() {
+		    @Override
+		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+		        frame.dispose();
+		        new AdminView();
+		    }
+		});
 
 		Toolkit screen = Toolkit.getDefaultToolkit();
 		Dimension dimension = screen.getScreenSize();
