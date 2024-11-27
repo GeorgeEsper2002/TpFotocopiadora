@@ -14,6 +14,7 @@ public class DataUser {
 		userDB[0] = new User("admin", "admin", "0", true);
 		userDB[1] = new User("user1", "user1", "1", true);
 		userDB[2] = new User("user2", "user2", "1", true);
+		userDB[3] = new User("user3", "user3", "1", true);
 
 	}
 
