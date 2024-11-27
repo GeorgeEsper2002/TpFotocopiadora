@@ -9,13 +9,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import models.PrintJob;
@@ -30,7 +33,7 @@ import views.admin.AdminView;
 public class ListPrintJobsAdmin implements ActionListener {
 
 	private JFrame frame;
-	private JPanel buttons;
+	private JPanel buttons, editionPanel;
 	private JButton deletePrintJob, back, filterByUser, changeState, filterByState, edit;
 	private JTable table;
 	private DefaultTableModel model;
@@ -196,63 +199,102 @@ public class ListPrintJobsAdmin implements ActionListener {
 
 		}
 		if (e.getSource() == edit) {
+
 			int selectedRow = table.getSelectedRow();
-			if (selectedRow != -1) { 
+			if (selectedRow != -1) {
 				// Verificar si se ha seleccionado una fila
-			       	int printJobId = Integer.parseInt((String) model.getValueAt(selectedRow, 0));
-		            String currentDescription = (String) model.getValueAt(selectedRow, 1);
-		            String currentCopies = (String) model.getValueAt(selectedRow, 2);
-		            String currentQuality = (String) model.getValueAt(selectedRow, 4);
-		            PrintJob job=PrintJobService.getJobById(printJobId);
-		            // Pedir al usuario que ingrese los nuevos valores para los campos
-		            String newDescription = JOptionPane.showInputDialog(null, "Ingresa la nueva descripción:", currentDescription);
-		            if (newDescription == null || newDescription.trim().isEmpty()) {
-		                JOptionPane.showMessageDialog(frame, "La descripción no puede estar vacía.", "Error", JOptionPane.ERROR_MESSAGE);
-		                return;
-		            }
+				int printJobId = Integer.parseInt((String) model.getValueAt(selectedRow, 0));
+				String currentDescription = (String) model.getValueAt(selectedRow, 1);
+				String currentCopies = (String) model.getValueAt(selectedRow, 2);
+				String currentQuality = (String) model.getValueAt(selectedRow, 4);
+				PrintJob job = PrintJobService.getJobById(printJobId);
 
-		            String newCopies = JOptionPane.showInputDialog(null, "Ingresa el nuevo número de copias:", currentCopies);
-		            if (newCopies == null || newCopies.trim().isEmpty()) {
-		                JOptionPane.showMessageDialog(frame, "El número de copias no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
-		                return;
-		            }
+				// Crear un panel para la edición
+				editionPanel = new JPanel();
+				editionPanel.setLayout(new BoxLayout(editionPanel, BoxLayout.Y_AXIS));
 
-		            String[] options= {"Blanco y Negro", "Color"};
-		            JComboBox<String> comboBox = new JComboBox<>(options);
-		            String newQuality = (String) JOptionPane.showInputDialog(frame, "Seleccione el nuevo estado:",
-							"Cambiar estado", JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-		            if (newQuality == null) {
-		                JOptionPane.showMessageDialog(frame, "La calidad no puede estar vacía.", "Error", JOptionPane.ERROR_MESSAGE);
-		                return;
-		            }
+				// Campo para la descripción
+				JTextField descriptionField = new JTextField(currentDescription);
+				editionPanel.add(new JLabel("Descripción:"));
+				editionPanel.add(descriptionField);
 
-		            // Validar que el campo "Copias" sea un número entero válido
-		            try {
-		                Integer.parseInt(newCopies);  // Intentar convertir el texto a un número
-		            } catch (NumberFormatException ex) {
-		                JOptionPane.showMessageDialog(frame, "El número de copias debe ser un valor numérico.", "Error", JOptionPane.ERROR_MESSAGE);
-		                return;
-		            }
+				// Campo para el número de copias
+				JTextField copiesField = new JTextField(currentCopies);
+				editionPanel.add(new JLabel("Número de copias:"));
+				editionPanel.add(copiesField);
 
-		            // Actualizar el trabajo de impresión
-		            job = DataBaseLogic.editPrintJob(printJobId, newDescription, newCopies, newQuality);
-		            
-		            // pregunto si la descripcion vieja es igual a la nueva para poder actualizar
-		            if(!job.getDescription().equals(currentDescription)) {
-		            	// Actualizar los valores en la tabla
-		                model.setValueAt(newDescription, selectedRow, 1); // Actualizar Descripción
-		                model.setValueAt(newCopies, selectedRow, 2);     // Actualizar Copias
-		                model.setValueAt(newQuality, selectedRow, 4);    // Actualizar Calidad
+				// ComboBox para la calidad
+				String[] options = { "Blanco y Negro", "Color" };
+				JComboBox<String> qualityComboBox = new JComboBox<>(options);
+				qualityComboBox.setSelectedItem(currentQuality);
+				editionPanel.add(new JLabel("Calidad:"));
+				editionPanel.add(qualityComboBox);
 
-		                JOptionPane.showMessageDialog(frame, "Trabajo de impresión actualizado con éxito.");
-		            } else {
-		                JOptionPane.showMessageDialog(frame, "Error al actualizar el trabajo de impresión.", "Error", JOptionPane.ERROR_MESSAGE);
-		            }
-		        } else {
-		            JOptionPane.showMessageDialog(frame, "Seleccione un trabajo para editar.", "Error", JOptionPane.ERROR_MESSAGE);
-		        }
+				// Mostrar el panel en un JOptionPane
+				int result = JOptionPane.showConfirmDialog(frame, editionPanel, "Editar Trabajo de Impresión",
+						JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+				if (result == JOptionPane.OK_OPTION) {
+					String newDescription = descriptionField.getText().trim();
+					String newCopies = copiesField.getText().trim();
+					String newQuality = (String) qualityComboBox.getSelectedItem();
+
+					// Validar que los campos no estén vacíos
+					if (newDescription.isEmpty()) {
+						JOptionPane.showMessageDialog(frame, "La descripción no puede estar vacía.", "Error",
+								JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					if (newCopies.isEmpty()) {
+						JOptionPane.showMessageDialog(frame, "El número de copias no puede estar vacío.", "Error",
+								JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					try {
+						Integer.parseInt(newCopies); // Intentar convertir el texto a un número
+					} catch (NumberFormatException ex) {
+						JOptionPane.showMessageDialog(frame, "El número de copias debe ser un valor numérico.", "Error",
+								JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					if (newQuality == null) {
+						JOptionPane.showMessageDialog(frame, "La calidad no puede estar vacía.", "Error",
+								JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+
+					// Actualizar el trabajo de impresión solo si los valores han cambiado
+					boolean updated = false;
+					if (!newDescription.equals(currentDescription)) {
+						job.setDescription(newDescription);
+						model.setValueAt(newDescription, selectedRow, 1); // Actualizar Descripción
+						updated = true;
+					}
+					if (!newCopies.equals(currentCopies)) {
+						job.setCopies(newCopies);
+						model.setValueAt(newCopies, selectedRow, 2); // Actualizar Copias
+						updated = true;
+					}
+					if (!newQuality.equals(currentQuality)) {
+						job.setQuality(newQuality);
+						model.setValueAt(newQuality, selectedRow, 4); // Actualizar Calidad
+						updated = true;
+					}
+
+					if (updated) {
+						DataBaseLogic.editPrintJob(printJobId, newDescription, newCopies, newQuality);
+						JOptionPane.showMessageDialog(frame, "Trabajo de impresión actualizado con éxito.");
+					} else {
+						JOptionPane.showMessageDialog(frame, "No se realizaron cambios.", "Información",
+								JOptionPane.INFORMATION_MESSAGE);
+					}
+				}
+			} else {
+				JOptionPane.showMessageDialog(frame, "Seleccione un trabajo para editar.", "Error",
+						JOptionPane.ERROR_MESSAGE);
+			}
 
 		}
-	}
 
+	}
 }
